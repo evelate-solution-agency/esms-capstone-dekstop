@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Scheduling Management System</title>
+    <link rel="stylesheet" href="../styles/profile.css">
+</head>
+<body>
+    <div class="sidenav">
+        <h2>Event Scheduling System</h2>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="login.html" onclick="logout()">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h1>Profile</h1>
+        <div class="profile-info">
+            <div class="profile-details">
+                <p><strong>USERNAME:</strong>ewq21</p>
+                <p><strong>Email:</strong> johndoe@example.com</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+         document.addEventListener('DOMContentLoaded', function() {
+            var currentPage = window.location.pathname.split('/').pop(); 
+            var links = document.querySelectorAll('.sidenav a'); 
+            links.forEach(function(link) {
+                if (link.href.includes(currentPage)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        function logout() {
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('all_events');
+            localStorage.removeItem('filtered_events');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
