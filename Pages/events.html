@@ -15,7 +15,7 @@
             <li><a href="dashboard.html">Dashboard</a></li>
             <li><a href="events.html">Events</a></li>
             <li><a href="profile.html">Profile</a></li>
-            <li><a href="login.html" onclick="logout()">Logout</a></li>
+            <li><a href="login.html" onclick="logout(event)">Logout</a></li>
         </ul>
     </div>
 
@@ -47,7 +47,7 @@
                 return;
             }
 
-            let apiUrl = 'http://192.168.99.118:8000/api/events/';
+            let apiUrl = 'http://192.168.1.108:8000/api/events/';
             if (eventType) {
                 apiUrl += `?event_type=${eventType}`;
             }
@@ -115,14 +115,25 @@
             alert('Viewing details for event ID ' + eventId);
         }
 
-        function logout() {
-            localStorage.removeItem('auth_token');
-            localStorage.removeItem('user');
-            localStorage.removeItem('all_events');
-            localStorage.removeItem('filtered_events')
-            window.location.href = 'login.html';
-        }
-    </script>
+    function logout(event) {
+    event.preventDefault(); // Prevent the default <a> tag behavior (navigation)
+    
+    const confirmation = confirm("Are you sure you want to log out?");
+    if (confirmation) {
+        // Remove items from localStorage
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('all_events');
+        localStorage.removeItem('filtered_events');
+        
+        // Redirect to login page
+        window.location.href = 'login.html';
+    } else {
+        // User canceled logout, no action taken
+        console.log('Logout canceled');
+    }
+}
+</script>
 
 </body>
 </html>
